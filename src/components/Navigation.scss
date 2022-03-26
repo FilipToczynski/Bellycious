@@ -1,0 +1,18 @@
+.mainNav {
+  height: 4rem;
+  width: 100%;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+
+  &__item {
+    font-size: 1rem;
+  }
+
+  &__List {
+    color: black;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+}
