@@ -3,16 +3,29 @@
   width: 100%;
   background-color: #f1f1f1;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+
+  &__search {
+    
+  }
 
   &__item {
     font-size: 1rem;
+    padding-right: 2rem;
   }
 
   &__List {
     color: black;
     list-style: none;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: right;
+    padding: 0;
   }
+}
+
+.par {
+  font-size: 20rem;
+  color:rebeccapurple;
 }

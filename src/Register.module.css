@@ -1,0 +1,15 @@
+.container {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr;
+  grid-auto-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+
+.register {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.picture {
+  grid-area: 1 / 2 / 2 / 3;
+}
