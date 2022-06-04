@@ -1,0 +1,17 @@
+.container {  display: grid;
+    grid-template-columns: 0.5fr 1.5fr;
+    grid-auto-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    height: 100%;
+  }
+  
+  .recipeWeek { grid-area: 1 / 1 / 2 / 2; }
+  
+  .recipeView { grid-area: 1 / 2 / 2 / 3; }
+  
+
+  .mainView {
+    height: 100%;
+    width: auto;
+  }

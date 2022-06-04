@@ -1,10 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import SearchContext from "../../store/search-context";
+
 import "../Navigation/Navigation.scss";
 
 const Navigation: React.FC = () => {
   const authCtx = useContext(AuthContext);
+  const searchCtx = useContext(SearchContext);
+
+  const [query, setQuery] = useState("");
+
+  console.log(query);
+
+  const inputChange = (event: any) => {
+    setQuery(event.target.value);
+  };
+
+
+
+
+    searchCtx.pullSearch(query);
+
+
+  
 
   const isLoggedIn = authCtx.isLoggedIn;
   return (
@@ -16,14 +35,18 @@ const Navigation: React.FC = () => {
           type="text"
           placeholder="search"
           className="mainNav__search"
+          onBlur={inputChange}
         ></input>
-        <button type="submit">Search</button>
+        <button type="button">
+          Search
+        </button>
       </form>
+
       <ul className="mainNav__List">
-        {isLoggedIn && ( 
+        {isLoggedIn && (
           <Link to="/favourites" className="mainNav__item">
-          Favourites
-        </Link>
+            Favourites
+          </Link>
         )}
 
         {!isLoggedIn && (
@@ -31,9 +54,7 @@ const Navigation: React.FC = () => {
             register
           </Link>
         )}
-        {isLoggedIn && (
-          <button onClick={authCtx.logout}>logout</button>
-        )}
+        {isLoggedIn && <button onClick={authCtx.logout}>logout</button>}
       </ul>
     </div>
   );
