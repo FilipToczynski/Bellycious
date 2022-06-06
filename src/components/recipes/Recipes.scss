@@ -1,17 +1,98 @@
-.container {  display: grid;
+.recipe {
+  height: 100%;
+  width: auto;
+  height: 92vh;
+
+  &__container {
+    display: grid;
     grid-template-columns: 0.5fr 1.5fr;
     grid-auto-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     height: 100%;
   }
-  
-  .recipeWeek { grid-area: 1 / 1 / 2 / 2; }
-  
-  .recipeView { grid-area: 1 / 2 / 2 / 3; }
-  
 
-  .mainView {
-    height: 100%;
-    width: auto;
+  &__list {
+    list-style: none;
+    overflow: scroll;
+    grid-area: 1 / 1 / 2 / 2;
+    z-index: 1;
   }
+  &__link {
+    text-decoration: none;
+    width: 100%;
+  }
+
+  &__item {
+    height: 16.5rem;
+    width: auto;
+    position: relative;
+    pointer-events: none;
+  }
+
+  &__image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  &__item:hover {
+    *:not(:first-child) {
+      padding: 1rem;
+      transition: all .2s ease-out;
+    }
+  }
+
+  &__header {
+    position: absolute;
+    z-index: 3;
+    padding: 0;
+    transition: all 1.2s;
+    color: #f1f1f1;
+    text-shadow: 0.1rem 0.1rem 0.1rem #000;
+    width: 80%;
+    overflow-wrap: break-word;
+  }
+}
+
+.recipeView {
+  grid-area: 1 / 2 / 2 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+  // &__hero {
+      // width: 80%;
+  // }
+  &__image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+  }
+
+  &__favourite {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  &__header {
+
+  }
+
+  &__icon {
+
+  }
+
+  &__list {
+
+  }
+
+  &__link {
+
+  }
+}

@@ -13,6 +13,14 @@ const Navigation: React.FC = () => {
 
   console.log(query);
 
+  const clearView = () => {
+    const view = document.querySelector('.recipeView');
+    const viewWeek = document.querySelector('.recipe__list');
+ 
+     view!.innerHTML = '';
+     viewWeek!.innerHTML = '';
+   } 
+
   const inputChange = (event: any) => {
     setQuery(event.target.value);
   };
@@ -37,7 +45,7 @@ const Navigation: React.FC = () => {
           className="mainNav__search"
           onBlur={inputChange}
         ></input>
-        <button type="button">
+        <button type="button" onClick={clearView}>
           Search
         </button>
       </form>
