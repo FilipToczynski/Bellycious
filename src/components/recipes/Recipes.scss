@@ -2,7 +2,8 @@
   height: 100%;
   width: auto;
   height: 92vh;
-
+  font-family: Poppins;
+  font-size: .8rem;
   &__container {
     display: grid;
     grid-template-columns: 0.5fr 1.5fr;
@@ -17,14 +18,31 @@
     overflow: scroll;
     grid-area: 1 / 1 / 2 / 2;
     z-index: 1;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
   }
+
+  &__list::-webkit-scrollbar {
+    width: 7px; 
+ } 
+
+ &__list::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+&__list::-webkit-scrollbar-thumb {
+  background: #85e47c;
+  border-radius: 10px;
+}
   &__link {
     text-decoration: none;
     width: 100%;
+    // height: 12.5rem;
+
   }
 
   &__item {
-    height: 16.5rem;
+    height: 12rem;
     width: auto;
     position: relative;
     pointer-events: none;
@@ -32,16 +50,18 @@
 
   &__image {
     position: absolute;
-    height: 100%;
+    // height: 100%;
     width: 100%;
+    background-size: cover;
     pointer-events: auto;
     z-index: 1;
+    filter: contrast(120%);
   }
 
   &__item:hover {
     *:not(:first-child) {
-      padding: 1rem;
-      transition: all .2s ease-out;
+      padding: 2rem;
+      transition: all .2s ease ;
     }
   }
 
@@ -54,7 +74,13 @@
     text-shadow: 0.1rem 0.1rem 0.1rem #000;
     width: 80%;
     overflow-wrap: break-word;
+    font-weight: 300;
   }
+}
+
+ion-icon {
+  font-size: 34px;
+
 }
 
 .recipeView {
@@ -64,13 +90,13 @@
   align-items: center;
   justify-content: flex-start;
   
-  // &__hero {
-      // width: 80%;
-  // }
+  
   &__image {
+    height: 60vh;
+    width: auto;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
+
   }
 
   &__favourite {
@@ -78,21 +104,42 @@
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    height: 10rem;
   }
 
   &__header {
-
+    
   }
 
   &__icon {
-
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    cursor: pointer;
   }
 
   &__list {
-
+ height: fit-content;
+ width: 60vw;
+ font-weight: 300;
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 2.5rem 3rem;
+ list-style: none;
+ margin: 2rem;
   }
-
+  
   &__link {
-
+    
+  }
+  &__item {
+    font-size: .9rem;
+    padding-right: 2rem;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }

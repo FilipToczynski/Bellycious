@@ -1,11 +1,14 @@
 import { useContext, useEffect } from "react";
 import RecipeContext from "../../store/recipe-context";
 import SearchContext from "../../store/search-context";
+import AuthContext from "../../store/auth-context";
 import "./Recipes.scss";
+import { BsBookmarkHeart, BsBookmarkHeartFill } from 'react-icons/bs';
 
 const Recipes = () => {
   const searchCtx = useContext(SearchContext);
   const recipeCtx = useContext(RecipeContext);
+  const authCtx = useContext(AuthContext);
 
   const render = () => {
     if (recipeCtx.data) {
@@ -74,6 +77,15 @@ const Recipes = () => {
 
   const showRecipe = async function () {
     const id = window.location.hash.slice(1);
+
+      const bookmark = () => {
+        // togle the state of bookmarked
+
+        // push the recipe to local storage
+
+        
+      }
+
     try {
       const recipeView = document.querySelector(".recipeView");
 
@@ -87,38 +99,44 @@ const Recipes = () => {
 
       console.log(data);
 
-      let { recipe } = data.recipe;
+      if (response.ok) {
 
-      recipe = {
-        image: data.recipe.image_url,
-        publisher: data.recipe.publisher,
-        ing: data.recipe.ingredients,
-        id: data.recipe.id,
-        link: data.recipe.source_url,
-        title: data.recipe.title,
-      };
-
-      const markup = `
-      <div class="recipeView__hero">
-            <figure class="recipeView__image">
-              <img class="recipeView__image" src="${recipe.image}" alt="w"/>
-            </figure>
-          </div>
-            <div class="recipeView__favourite">
-              <div class="recipeView__header">ingredients</div>
-              <div class="recipeView__icon">icon</div>
-            </div>
-        <div class="recipeView__list">
-          ${recipe.ing.map((ing: string) => {
-            return `<li>${ing}</li>`
-          })}
+        let { recipe } = data.recipe;
+        
+        recipe = {
+          image: data.recipe.image_url,
+          publisher: data.recipe.publisher,
+          ing: data.recipe.ingredients,
+          id: data.recipe.id,
+          link: data.recipe.source_url,
+          title: data.recipe.title,
+        };
+      
+        const markup = `
+        <figure class="recipeView__fig">
+        <img class="recipeView__image" src="${recipe.image}" alt="w"/>
+        </figure>
+        
+        <div class="recipeView__favourite">
+        <div class="recipeView__header">ingredients</div>
+        <div class="recipeView__icon">${authCtx.isLoggedIn ? '<ion-icon name="heart"></ion-icon>' : 'save <ion-icon name="heart-outline"></ion-icon>'}</div>  
         </div>
+        
+        <ul class="recipeView__list">
+        ${recipe.ing.map((ing: string) => {
+          return `
+          <li class="recipeView__item">${ing}</li>
+          `
+        }).join('')}
+        </ul>
+        
         <div className="recipeView__link">link to the publsiher</div>
-      `;
-
-      recipeView!.innerHTML = "";
-      recipeView?.insertAdjacentHTML("afterbegin", markup);
-      return true;
+        `;
+        
+        recipeView!.innerHTML = "";
+        recipeView?.insertAdjacentHTML("afterbegin", markup);
+      }
+      // return true;
     } catch (err) {
       console.log(err);
     }
@@ -131,39 +149,10 @@ const Recipes = () => {
     <section className="recipe">
       <div className="recipe__container">
         <div className="recipe__list">
-          {/* <a className="recipe__link" href="#38512">
-            <li className="recipe__item">
-              <figure>
-                <img
-                  src="https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                  alt="chat baker"
-                  className="recipe__image"
-                />
-              </figure>
-              <div>
-                <h1 className="recipe__header">titleasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd</h1>
-              </div>
-            </li>
-          </a> */}
+         
         </div>
         <div className="recipeView">
-          {/* <div className="recipeView__hero">
-            <figure className="recipeView__image">
-              <img className="recipeView__image" src="https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="w"/>
-            </figure>
-          </div>
-            <div className="recipeView__favourite">
-              <div className="recipeView__header">ingredients</div>
-              <div className="recipeView__icon">icon</div>
-            </div>
-        <div className="recipeView__list">
-          <ul>
-            <li>cilantro</li>
-            <li>cilantro</li>
-            <li>cilantro</li>
-          </ul>
-        </div>
-        <div className="recipeView__link">link to the publsiher</div> */}
+         
         </div>
       </div>
     </section>
