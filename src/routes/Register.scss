@@ -1,0 +1,133 @@
+.container {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr;
+  grid-auto-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  height: 100%;
+  width: 100%;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: poppins;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__header {
+    padding: 2rem;
+    font-size: 3rem;
+  }
+
+  &__label {
+    font-size: 1.2rem;
+  }
+
+  &__input {
+  border-radius: 30px;    
+  border: 1px solid #6c8e48;
+  padding: 0 .5rem;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__btn {
+    margin: 1rem;
+    border-radius: 30px;
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 0 1.5rem;
+    cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+
+    &:hover  {
+      transform: scale(1.02);
+    }
+    &--switch {
+      background-color: #6c8e48;
+    }
+  }
+
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.logo {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__popup {
+    position: absolute;
+    z-index: 9;
+    color: #fff;
+    transform: translateY(-15rem);
+  }
+
+  &__description {
+    position: absolute;
+    z-index: 9;
+    color: #fff;
+    font-family: Oleo Script;
+    transform: translateY(4rem);
+  }
+
+  h1 {
+    position: absolute;
+    font-size: 8rem;
+    transform: translateY(-2rem);
+    font-family: Dancing Script;
+    color: #fff;
+  }
+  &__picAuthor {
+    position: absolute;
+    z-index: 9;
+    color: #000;
+    font-size: 0.7rem;
+    bottom: 0;
+    right: 0.2rem;
+    color: #fff;
+    font-family: poppins;
+    a {
+      color: #6c8e48;
+      text-decoration: none;
+    }
+  }
+
+  &__header {
+    position: absolute;
+    z-index: 9;
+  }
+  &__img {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    transform-origin: top;
+    &::before {
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: linear-gradient(to right bottom, #a0a0a0, #000);
+      opacity: 0.8;
+    }
+  }
+  grid-area: 1 / 2 / 2 / 3;
+}

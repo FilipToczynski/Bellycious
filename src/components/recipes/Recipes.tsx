@@ -113,6 +113,7 @@ const Recipes = () => {
         };
       
         const markup = `
+        <h1 class="recipeView__title">${recipe.title}</h1>
         <figure class="recipeView__fig">
         <img class="recipeView__image" src="${recipe.image}" alt="w"/>
         </figure>
@@ -125,12 +126,14 @@ const Recipes = () => {
         <ul class="recipeView__list">
         ${recipe.ing.map((ing: string) => {
           return `
-          <li class="recipeView__item">${ing}</li>
+          <li class="recipeView__item"><ion-icon name="checkmark-outline"></ion-icon>${ing}</li>
           `
         }).join('')}
         </ul>
         
-        <div className="recipeView__link">link to the publsiher</div>
+        <a href=${recipe.link} class="recipeView__link" target="_open"> 
+        <div >Click here for a full recipe!</div>
+        </a>
         `;
         
         recipeView!.innerHTML = "";

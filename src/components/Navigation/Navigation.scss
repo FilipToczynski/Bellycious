@@ -6,14 +6,69 @@
   justify-content: space-between;
   align-items: center;
   font-family: Poppins;
+  background-image: linear-gradient(
+    to right bottom,
+    #94de8d,
+    #aceda6,
+    #fff1a2,
+    #ffef95
+  );
+
+  &__btn {
+    border-radius: 30px;
+    width: 6rem;
+    // z-index: 9;
+    position: absolute;
+    transform: translateX(-30%);
+    background-color: #f4f1f1;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all .3s;
+  }
+
+  &__btn:hover {
+    width: 7rem;
+  }
+  h1 {
+    font-family: Dancing Script;
+    font-weight: 700;
+    margin-left: 1rem;
+  }
 
   &__search {
+    border-radius: 30px;
+    padding-left: 1rem;
+    background-color: #fff;
+    border: 2px solid #fff;
+    transition: all .2s;
     
+   &:focus::placeholder {
+      transform: translate(-20px, -20px);
+      position: absolute;
+      // left: 0;
+    transition: all .4s cubic-bezier(1,.15,.9,1.11);
+
+    }
+  }
+  
+
+  &__search:focus {
+    outline: none;
+    transform: scale(1.02);
   }
 
   &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 6rem;
+    border-radius: 30px;
+    background-color: #fff;
     font-size: 1rem;
-    padding-right: 2rem;
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #000;
   }
 
   &__List {
@@ -28,5 +83,5 @@
 
 .par {
   font-size: 20rem;
-  color:rebeccapurple;
+  color: rebeccapurple;
 }

@@ -36,7 +36,7 @@ const Navigation: React.FC = () => {
   const isLoggedIn = authCtx.isLoggedIn;
   return (
     <div className="mainNav">
-      <div>Bellycious</div>
+      <h1>Bellycious</h1>
 
       <form>
         <input
@@ -45,7 +45,7 @@ const Navigation: React.FC = () => {
           className="mainNav__search"
           onBlur={inputChange}
         ></input>
-        <button type="button" onClick={clearView}>
+        <button type="button" onClick={clearView} className="mainNav__btn">
           Search
         </button>
       </form>
