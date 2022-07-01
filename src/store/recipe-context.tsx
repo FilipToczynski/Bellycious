@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 
 const RecipeContext = React.createContext({
-  data: {} as any,
-  rec: (data: any) => {},
-  recipeThree: "" as any,
+  data: [] as object[],
+
+  pullData: (data: any) => {},
 });
 
-export const RecipeContextProvider: React.FC<React.ReactNode> = (
-  props: any
-) => {
-  const [data, setData] = useState("" as any);
+export const RecipeContextProvider: React.FC<React.ReactNode> = (props) => {
+  const [data, setData] = useState([] as object[]);
 
-  const dataHandle = (recipes: any) => {
+  const dataHandle = ( recipes: object[] ) => {
     setData(
-      recipes.map((recipe: any) => {
+      recipes.map((recipe: any) => { // object
         return {
-          id: recipe.recipe_id,
-          title: recipe.title,
-          image: recipe.image_url,
+          id: recipe.recipe_id as string,
+          title: recipe.title as string,
+          image: recipe.image_url as string,
         };
       })
     );
@@ -25,8 +23,7 @@ export const RecipeContextProvider: React.FC<React.ReactNode> = (
 
   const contextValue = {
     data: data,
-    rec: dataHandle,
-    recipeThree: "" as any,
+    pullData: dataHandle as () => {},
   };
 
   return (

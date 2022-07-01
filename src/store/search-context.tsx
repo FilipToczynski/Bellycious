@@ -1,24 +1,24 @@
 import React, { useState } from "react"
 
 const SearchContext = React.createContext({
-    search: '' as any,
-    pullSearch: (query: any) => {}
+    search: '' as string,
+    pullSearch: (query: string) => {},
 })
 
 
 
-export const SearchContextProvider: React.FC<React.ReactNode> = (props: any) => {
+export const SearchContextProvider: React.FC<React.ReactNode> = (props) => {
 
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('' as string);
 
     
-    const searchHandle = (query: '') => {
+    const searchHandle = (query: string) => {
         setQuery(query)
     }
 
     const contextValue = {
-        search: query,
-        pullSearch: searchHandle,
+        search: query as string,
+        pullSearch: searchHandle as () => {},
     }
 
     return (

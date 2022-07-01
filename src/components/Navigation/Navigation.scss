@@ -1,74 +1,79 @@
+@import "../../index.scss";
+
 .mainNav {
   height: 8vh;
   width: 100%;
-  background-color: #f1f1f1;
+  background-color: var(--grey);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: Poppins;
-  background-image: linear-gradient(
-    to right bottom,
-    #94de8d,
-    #aceda6,
-    #fff1a2,
-    #ffef95
-  );
+  padding: 1rem;
 
-  &__btn {
-    border-radius: 30px;
-    width: 6rem;
-    // z-index: 9;
+  &__icon {
+    padding-left: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  &__span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  &__span:hover .mainNav__icon {
+    color: var(--dark-green);
+  }
+
+  &__searchBtn {
     position: absolute;
     transform: translateX(-30%);
-    background-color: #f4f1f1;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all .3s;
+    @include navigationButtons;
+    &:hover {
+      width: 7rem;
+    }
   }
 
-  &__btn:hover {
-    width: 7rem;
-  }
   h1 {
-    font-family: Dancing Script;
-    font-weight: 700;
-    margin-left: 1rem;
+    @include Logo;
   }
 
   &__search {
     border-radius: 30px;
     padding-left: 1rem;
-    background-color: #fff;
-    border: 2px solid #fff;
-    transition: all .2s;
-    
-   &:focus::placeholder {
-      transform: translate(-20px, -20px);
-      position: absolute;
-      // left: 0;
-    transition: all .4s cubic-bezier(1,.15,.9,1.11);
+    background-color: var(--white);
+    border: 2px solid var(--white);
+    transition: all 0.2s;
 
+    &:focus::placeholder {
+      transform: translate(-80px);
+      opacity: 0;
+      position: absolute;
+      transition: all 0.2s cubic-bezier(1, 0.15, 0.9, 1.11);
     }
   }
-  
 
   &__search:focus {
     outline: none;
     transform: scale(1.02);
   }
 
-  &__item {
+  &__profile {
+    position: absolute;
+    right: 10rem;
+  }
+
+  &__btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2rem;
-    width: 6rem;
-    border-radius: 30px;
-    background-color: #fff;
-    font-size: 1rem;
-    margin-right: 1rem;
-    text-decoration: none;
-    color: #000;
+    @include navigationButtons;
+    background-size: 200%;
+
+    &:hover {
+      background-position: right;
+    }
   }
 
   &__List {

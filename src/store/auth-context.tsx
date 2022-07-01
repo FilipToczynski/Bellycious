@@ -1,34 +1,33 @@
 import React, { useState } from "react";
 
-const AuthContext = React.createContext ({
-    token: '' as string,
-    isLoggedIn: false as boolean,
-    login: (token: string) => {},
-    logout: () => {},
-}) 
-
-
+const AuthContext = React.createContext({
+  token: "" as string,
+  isLoggedIn: false as boolean,
+  login: (token: string) => {},
+  logout: () => {},
+});
 
 export const AuthContextProvider: React.FC<React.ReactNode> = (props) => {
-  const initToken = localStorage.getItem('token');
-    const [token, setToken] = useState(initToken as string);
+  const initToken = localStorage.getItem("token");
+  const [token, setToken] = useState(initToken as string);
 
-    const userIsLoggedIn = !!token; // boolean value !!
+  let userIsLoggedIn = !!token as boolean; // *initially false
 
-    const LoginHandler = (token: string) => {
-        setToken(token)
-        localStorage.setItem('token', token)
-    };
-    const logoutHandler = () => {
-        setToken('')
-    };
+  const LoginHandler = (token: string) => {
+    localStorage.setItem("token", token as string);
+    setToken(token);
+  };
+  const logoutHandler = () => {
+    setToken("");
+    localStorage.removeItem("token");
+  };
 
-    const contextValue = {
-        token: token, 
-        isLoggedIn: userIsLoggedIn,
-        login: LoginHandler,
-        logout: logoutHandler,
-    }
+  const contextValue = {
+    token: token as string,
+    isLoggedIn: userIsLoggedIn as boolean,
+    login: LoginHandler as () => {},
+    logout: logoutHandler as () => {},
+  };
 
   return (
     <AuthContext.Provider value={contextValue}>

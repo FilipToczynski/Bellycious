@@ -1,94 +1,84 @@
 import { useContext, useEffect } from "react";
 import RecipeContext from "../../store/recipe-context";
 import SearchContext from "../../store/search-context";
-import AuthContext from "../../store/auth-context";
 import "./Recipes.scss";
-import { BsBookmarkHeart, BsBookmarkHeartFill } from 'react-icons/bs';
+import {BiSearchAlt2} from 'react-icons/bi';
+import { IconContext } from "react-icons";
 
-const Recipes = () => {
+const Recipes: React.FC = () => {
   const searchCtx = useContext(SearchContext);
   const recipeCtx = useContext(RecipeContext);
-  const authCtx = useContext(AuthContext);
 
-  const render = () => {
-    if (recipeCtx.data) {
-      recipeCtx.data.map((recc: any) => {
-        const searchList = document.querySelector(".recipe__list");
+  let query = searchCtx.search;
 
-        const markup = `
-        <a class="recipe__link" href="#${recc.id}">
-            <li class="recipe__item">
+  const RecipeList = () => {
+    if (recipeCtx.data as Array<object>) {
+      recipeCtx.data.map((recipeData: any) => {
+        const searchList = document.querySelector(".recipe__list") as HTMLDivElement;
+        
+        const markup = ` 
+        <a class="recipe__link" href="#${recipeData.id}">
+            <li class="recipe__item animate__animated animate__fadeIn">
               <figure>
                 <img
-                  src="${recc.image}"
+                  src="${recipeData.image}"
                   alt="chat baker"
-                  class="recipe__image"
+                  class="recipe__image animate__animated animate__fadeIn"
                 />
               </figure>
               <div>
-                <h1 class="recipe__header">${recc.title}</h1>
+                <h1 class="recipe__header">${recipeData.title}</h1>
               </div>
             </li>
           </a>
     `;
-
-        searchList?.insertAdjacentHTML("afterbegin", markup);
-
-        return recc;
+    searchList?.insertAdjacentHTML("afterbegin", markup);
+        return recipeData;
       });
     } else {
-      console.log("err");
+      console.log('')
     }
   };
 
-  let query = searchCtx.search;
-
+  // calls api for with the search query
   const searchResults = async function (query: string) {
     try {
-      await fetch(
-        `https://forkify-api.herokuapp.com/api/search?q=${query}`
-      ).then((res) => {
-        if (res.ok) {
-          const ress = res.json();
-          ress.then((data) => {
-            recipeCtx.rec(data.recipes);
-            console.log(data.recipes);
-          });
-        } else {
-          res.json().then((data) => {
-            let errMsg = data;
-
-            console.log(errMsg);
-          });
-        }
-      });
-      return true;
-    } catch (err) {
-      alert(err);
+      if (query as string) {
+        await fetch(
+          `https://forkify-api.herokuapp.com/api/search?q=${query}`
+        ).then((res) => {
+          if (res.ok) {
+            const data = res.json();
+            
+            data.then((data: { recipes: object[] }) => {
+              recipeCtx.pullData(data.recipes);
+            });
+          } else if (!res.ok) {
+            alert(
+              `Cant find "${query}" or exceeded limit of api calls (100 per hour)`
+            );
+          }
+        });
+      }
+    } catch (err: any) {
+      throw Error(err.message);
     }
   };
+  RecipeList();
 
   // ensures we make only one call
   useEffect(() => {
-    searchResults(query);
-  }, [query]); // ignore "include searchResults"  warning
+    searchResults(query as string);
+    //eslint-disable-next-line
+  }, [query]);
 
-  render();
+  // make api call based on ID from the list
+  const RecipeView = async function () {
+    const id = window.location.hash.slice(1); 
 
-  const showRecipe = async function () {
-    const id = window.location.hash.slice(1);
-
-      const bookmark = () => {
-        // togle the state of bookmarked
-
-        // push the recipe to local storage
-
-        
-      }
+    const recipeView = document.querySelector(".recipeView") as HTMLDivElement;
 
     try {
-      const recipeView = document.querySelector(".recipeView");
-
       const response = await fetch(
         `https://forkify-api.herokuapp.com/api/get?rId=${id}`
       );
@@ -97,65 +87,75 @@ const Recipes = () => {
 
       if (!response.ok) throw new Error(`${data.message} (${response.status})`);
 
-      console.log(data);
+     
 
       if (response.ok) {
-
         let { recipe } = data.recipe;
-        
+
         recipe = {
+          id: data.recipe.recipe_id,
           image: data.recipe.image_url,
           publisher: data.recipe.publisher,
           ing: data.recipe.ingredients,
-          id: data.recipe.id,
           link: data.recipe.source_url,
           title: data.recipe.title,
         };
-      
+
         const markup = `
-        <h1 class="recipeView__title">${recipe.title}</h1>
+        <h1 class="recipeView__title"><span>${recipe.title}</span></h1>
         <figure class="recipeView__fig">
-        <img class="recipeView__image" src="${recipe.image}" alt="w"/>
+        <img class="recipeView__image" src="${
+          recipe.image
+        }" alt="done recipe food"/>
         </figure>
         
-        <div class="recipeView__favourite">
         <div class="recipeView__header">ingredients</div>
-        <div class="recipeView__icon">${authCtx.isLoggedIn ? '<ion-icon name="heart"></ion-icon>' : 'save <ion-icon name="heart-outline"></ion-icon>'}</div>  
-        </div>
         
         <ul class="recipeView__list">
-        ${recipe.ing.map((ing: string) => {
-          return `
-          <li class="recipeView__item"><ion-icon name="checkmark-outline"></ion-icon>${ing}</li>
-          `
-        }).join('')}
-        </ul>
-        
-        <a href=${recipe.link} class="recipeView__link" target="_open"> 
-        <div >Click here for a full recipe!</div>
-        </a>
-        `;
-        
+        ${recipe.ing
+          .map((ing: string) => {
+            return `
+            <li class="recipeView__item"><ion-icon name="checkmark-outline"></ion-icon>${ing}</li>
+            `;
+          })
+          .join("")}
+          </ul>
+          
+          <a href=${recipe.link} class="recipeView__link" target="_open"> 
+          <div>Click here for a full recipe!</div>
+          </a>     
+         
+          `;
+
         recipeView!.innerHTML = "";
         recipeView?.insertAdjacentHTML("afterbegin", markup);
       }
-      // return true;
     } catch (err) {
       console.log(err);
     }
   };
 
-  // to fix multiple calls try clearing hash on click on search in navigation
-  window.addEventListener("hashchange", showRecipe);
+  window.addEventListener("hashchange", RecipeView);
 
   return (
     <section className="recipe">
       <div className="recipe__container">
-        <div className="recipe__list">
-         
-        </div>
+        <div className="recipe__list"></div>
         <div className="recipeView">
-         
+          <span className="recipeView__message">
+            <IconContext.Provider  value={{ size: '1.5rem' }}>
+            <BiSearchAlt2 />
+            </IconContext.Provider>
+             Search for keywords like carrot, broccoli, cucumber. full list of
+            queries{" "}
+            <a
+              href="https://forkify-api.herokuapp.com/phrases.html"
+              target="_blank"
+              rel="noreferrer"
+            >
+              here
+            </a>
+          </span>
         </div>
       </div>
     </section>

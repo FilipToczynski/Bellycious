@@ -1,3 +1,5 @@
+@import '../index.scss';
+
 .container {
   display: grid;
   grid-template-columns: 0.5fr 1.5fr;
@@ -10,17 +12,13 @@
 
 .register {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 100vh;
-  font-family: poppins;
 
   &__form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include formDisplay;
   }
   &__header {
     padding: 2rem;
@@ -32,32 +30,14 @@
   }
 
   &__input {
-  border-radius: 30px;    
-  border: 1px solid #6c8e48;
-  padding: 0 .5rem;
-    &:focus {
-      outline: none;
-    }
+    @include inputStyles;
   }
 
   &__btn {
-    margin: 1rem;
-    border-radius: 30px;
-    border: 1px solid transparent;
-    background-color: #f1f1f1;
-    padding: 0 1.5rem;
-    cursor: pointer;
+    @include formBtnStyle;
 
-    a {
-      text-decoration: none;
-      color: #000;
-    }
-
-    &:hover  {
-      transform: scale(1.02);
-    }
     &--switch {
-      background-color: #6c8e48;
+      background-color: var(--dark-green);
     }
   }
 
@@ -71,27 +51,52 @@
   align-items: center;
   justify-content: center;
 
+  &__popTxt {
+    padding-right: 0.5rem;
+  }
   &__popup {
     position: absolute;
     z-index: 9;
-    color: #fff;
+  }
+
+  &__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    padding: 1.5rem;
+    color: #000;
     transform: translateY(-15rem);
+    height: 8rem;
+    width: auto;
+    background-image: var(--modal-gradient);
+    
+
+    a {
+      text-decoration: none;
+      color: var(--dark-yellow);
+      transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      &:hover {
+        color: var(--light-beige);
+      }
+    }
   }
 
   &__description {
     position: absolute;
     z-index: 9;
     color: #fff;
-    font-family: Oleo Script;
     transform: translateY(4rem);
+    @include ScriptFonts2;
   }
 
   h1 {
     position: absolute;
     font-size: 8rem;
     transform: translateY(-2rem);
-    font-family: Dancing Script;
+    @include ScriptFonts;
     color: #fff;
+    font-weight: 400;
   }
   &__picAuthor {
     position: absolute;
@@ -101,9 +106,8 @@
     bottom: 0;
     right: 0.2rem;
     color: #fff;
-    font-family: poppins;
     a {
-      color: #6c8e48;
+      color: var(--dark-green);
       text-decoration: none;
     }
   }
