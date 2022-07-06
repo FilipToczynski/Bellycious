@@ -1,16 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Profile.scss";
 
 const Profile = () => {
-  const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [ress, setRess] = useState(false);
 
   console.log(localStorage.token);
   console.log(newPassword);
   const tokenId = window.localStorage.getItem("token");
-  const submitReset = () => {
+  const submitReset = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDuTV3CvykmlilqYWHzhMgBn6nll5ZvEVw",
       {
@@ -26,27 +27,25 @@ const Profile = () => {
       }
     )
       .then((res) => {
+        console.log(res, "working");
+        setRess(true);
         if (res.ok) {
-          console.log(res, "working");
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errMsg = "not working";
-            console.log(data);
+            let errMsg =
+              "something went wrong! check email, old password and try again.";
 
             throw new Error(errMsg);
           });
         }
       })
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .catch((err) => {
         alert(err.message);
       });
   };
 
-  console.log(password);
   return (
     <>
       <nav className="profile__nav">
@@ -60,6 +59,7 @@ const Profile = () => {
         </div>
         <div className="profile__view">
           <form className="profile__form" onSubmit={submitReset}>
+            {ress && <p>Password Changed!</p>}
             <h1 className="profile__header">Reset Password</h1>
             <label htmlFor="email" className="register__label">
               Enter email
@@ -68,19 +68,6 @@ const Profile = () => {
               className="profile__input"
               type="email"
               id="email"
-              required
-              autoComplete="on"
-            ></input>
-            <label htmlFor="password" className="profile__label">
-              Old pasword
-            </label>
-            <input
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value)
-              }
-              className="profile__input"
-              type="password"
-              id="password"
               required
               autoComplete="on"
             ></input>
@@ -97,7 +84,7 @@ const Profile = () => {
               required
               autoComplete="on"
             ></input>
-            <button disabled={password.length < 6} className="profile__btn">
+            <button disabled={newPassword.length < 6} className="profile__btn">
               Reset
             </button>
           </form>

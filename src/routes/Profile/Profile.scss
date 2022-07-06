@@ -1,4 +1,4 @@
-@import "../index.scss";
+@import "../../index.scss";
 
 .profile {
   display: grid;
@@ -49,7 +49,14 @@
     justify-content: left;
     grid-area: 1 / 1 / 2 / 2;
     height: 92vh;
-    padding: 1rem;
+    a {
+      padding-left: 1rem;
+      width: 100%;
+    }
+  }
+
+  &__list a:hover {
+    background-color: #f1f1f1;
   }
 
   &__view {

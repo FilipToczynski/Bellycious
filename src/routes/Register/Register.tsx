@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 
-import AuthContext from "../store/auth-context";
+import AuthContext from "../../store/auth-context";
 import "./Register.scss";
 
 const Register: React.FC = () => {
@@ -116,12 +116,13 @@ const Register: React.FC = () => {
             className="register__input"
             type="email"
             id="email"
+            aria-label="input"
             required
             autoComplete="on"
             ref={emailRef}
           ></input>
           <label htmlFor="password" className="register__label">
-            Enter pasword
+            Enter password
           </label>
           <input
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -130,6 +131,7 @@ const Register: React.FC = () => {
             className="register__input"
             type="password"
             id="password"
+            aria-label="input"
             required
             autoComplete="on"
             ref={passwordRef}
@@ -138,6 +140,7 @@ const Register: React.FC = () => {
             className="register__btn"
             disabled={password.length < 6}
             onClick={loginConfirm}
+            aria-label="button"
           >
             {isLoggedIn ? "Register" : "Login"}
           </button>

@@ -1,10 +1,10 @@
+
 import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import Recipes from "./Recipes";
-
-describe("Recipes Component", () => {
+import Profile from './Profile';
+describe("Profile Component", () => {
   test("renders logo as link", async () => {
-    render(<Recipes />, { wrapper: BrowserRouter });
+    render(<Profile />, { wrapper: BrowserRouter });
 
   });
 });

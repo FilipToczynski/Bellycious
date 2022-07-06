@@ -5,8 +5,8 @@ import { AuthContextProvider } from "./store/auth-context";
 import { RecipeContextProvider } from "./store/recipe-context";
 import { SearchContextProvider } from "./store/search-context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Register from "./routes/Register";
-import Profile from "./routes/Profile";
+import Register from "./routes/Register/Register";
+import Profile from "./routes/Profile/Profile";
 
 function Appp() {
   return (

@@ -5,12 +5,12 @@ import Navigation from "./Navigation";
 describe("Navigation Component", () => {
   test("renders logo as link", () => {
     render(<Navigation />, { wrapper: BrowserRouter });
-    screen.getByRole("link", { name: /Bellycious/i });
+    screen.getByRole("link", { name: /bellycious/i });
   });
 
   test("renders register button as link", () => {
     render(<Navigation />, { wrapper: BrowserRouter });
-    screen.getByRole("link", { name: /Register/i });
+    screen.getByRole("link", { name: /register/i });
   });
 
   test("renders search bar", () => {
@@ -26,6 +26,8 @@ describe("Navigation Component", () => {
   test("does not render logout button", () => {
     render(<Navigation />, { wrapper: BrowserRouter });
     const logutoutBtn = screen.queryByLabelText(/logout/i);
+    const profile = screen.queryByLabelText(/my profile/i);
     expect(logutoutBtn).toBeNull();
+    expect(profile).toBeNull();
   });
 });
