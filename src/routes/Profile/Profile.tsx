@@ -61,18 +61,18 @@ const Profile = () => {
           <form className="profile__form" onSubmit={submitReset}>
             {ress && <p>Password Changed!</p>}
             <h1 className="profile__header">Reset Password</h1>
-            <label htmlFor="email" className="register__label">
+            <label htmlFor="email" className="register__label" aria-label="label">
               Enter email
             </label>
             <input
               className="profile__input"
               type="email"
-              id="email"
+              aria-label="input"
               required
               autoComplete="on"
             ></input>
-            <label htmlFor="password" className="profile__label">
-              New pasword
+            <label htmlFor="password" className="profile__label" aria-label="label">
+              New password
             </label>
             <input
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -80,6 +80,7 @@ const Profile = () => {
               }
               className="profile__input"
               type="password"
+              aria-label="input"
               id="password"
               required
               autoComplete="on"
