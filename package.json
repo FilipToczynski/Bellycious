@@ -49,6 +49,7 @@
   "devDependencies": {
     "@types/node": "^16.11.39",
     "@types/react-autosuggest": "^10.1.5",
-    "jest-watch-typeahead": "^0.6.5"
+    "jest-watch-typeahead": "^0.6.5",
+    "nock": "^13.2.8"
   }
 }

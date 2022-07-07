@@ -6,7 +6,7 @@ function App() {
   return (
     <React.Fragment>
       <Navigation />
-      <Recipes />
+     <Recipes />
     </React.Fragment>
   );
 }

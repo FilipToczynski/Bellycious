@@ -15,7 +15,7 @@ const Recipes: React.FC = () => {
     if (recipeCtx.data as Array<object>) {
       recipeCtx.data.map((recipeData: any) => {
         const searchList = document.querySelector(".recipe__list") as HTMLDivElement;
-        
+       
         const markup = ` 
         <a class="recipe__link" href="#${recipeData.id}">
             <li class="recipe__item animate__animated animate__fadeIn">
@@ -52,6 +52,7 @@ const Recipes: React.FC = () => {
             
             data.then((data: { recipes: object[] }) => {
               recipeCtx.pullData(data.recipes);
+              console.log(data.recipes);
             });
           } else if (!res.ok) {
             alert(
