@@ -18,7 +18,7 @@ function Appp() {
               <Route path="/" element={<App />} />
               <Route path="register" element={<Register />} />
               <Route path="profile" element={<Profile />}></Route>
-              <Route path="*" element={<p>sum ting wong!</p>} />
+              <Route path="*" element={<p>path does not exist!</p>} />
             </Routes>
           </BrowserRouter>
         </SearchContextProvider>

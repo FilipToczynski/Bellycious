@@ -29,8 +29,8 @@ const Navigation: React.FC = () => {
   // doesnt clear the list clears the list for the current query
   const HandleInputOnKeyPress = (
     event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === "Enter") {
+    ) => {
+      if (event.key === "Enter") {
       HandleInputChange(event as any);
       recipeView!.innerHTML = "";
       recipeList!.innerHTML = "";

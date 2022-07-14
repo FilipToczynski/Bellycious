@@ -2,8 +2,9 @@ import { useContext, useEffect } from "react";
 import RecipeContext from "../../store/recipe-context";
 import SearchContext from "../../store/search-context";
 import "./Recipes.scss";
-import {BiSearchAlt2} from 'react-icons/bi';
+import { BiSearchAlt2 } from "react-icons/bi";
 import { IconContext } from "react-icons";
+import React from "react";
 
 const Recipes: React.FC = () => {
   const searchCtx = useContext(SearchContext);
@@ -11,11 +12,19 @@ const Recipes: React.FC = () => {
 
   let query = searchCtx.search;
 
+  interface Recipe {
+    id: string;
+    title: string;
+    image: string;
+  }
+
   const RecipeList = () => {
-    if (recipeCtx.data as Array<object>) {
+    if (recipeCtx.data as Recipe[]) {
       recipeCtx.data.map((recipeData: any) => {
-        const searchList = document.querySelector(".recipe__list") as HTMLDivElement;
-       
+        const searchList = document.querySelector(
+          ".recipe__list"
+        ) as HTMLDivElement;
+
         const markup = ` 
         <a class="recipe__link" href="#${recipeData.id}">
             <li class="recipe__item animate__animated animate__fadeIn">
@@ -32,11 +41,11 @@ const Recipes: React.FC = () => {
             </li>
           </a>
     `;
-    searchList?.insertAdjacentHTML("afterbegin", markup);
+        searchList?.insertAdjacentHTML("afterbegin", markup);
         return recipeData;
       });
     } else {
-      console.log('')
+      console.log("");
     }
   };
 
@@ -49,20 +58,19 @@ const Recipes: React.FC = () => {
         ).then((res) => {
           if (res.ok) {
             const data = res.json();
-            
+
             data.then((data: { recipes: object[] }) => {
               recipeCtx.pullData(data.recipes);
               console.log(data.recipes);
             });
           } else if (!res.ok) {
-            alert(
-              `Cant find "${query}" or exceeded limit of api calls (100 per hour)`
-            );
+            const searchList = document.querySelector(".recipe__list") as HTMLDivElement;
+            searchList.innerHTML = `<div class='error'>Can't find recipe for "${query}"!</div>`; 
           }
         });
       }
-    } catch (err: any) {
-      throw Error(err.message);
+    } catch (err) {
+      console.log(err);
     }
   };
   RecipeList();
@@ -75,7 +83,7 @@ const Recipes: React.FC = () => {
 
   // make api call based on ID from the list
   const RecipeView = async function () {
-    const id = window.location.hash.slice(1); 
+    const id = window.location.hash.slice(1);
 
     const recipeView = document.querySelector(".recipeView") as HTMLDivElement;
 
@@ -87,8 +95,6 @@ const Recipes: React.FC = () => {
       const data = await response.json();
 
       if (!response.ok) throw new Error(`${data.message} (${response.status})`);
-
-     
 
       if (response.ok) {
         let { recipe } = data.recipe;
@@ -144,10 +150,10 @@ const Recipes: React.FC = () => {
         <div className="recipe__list"></div>
         <div className="recipeView">
           <span className="recipeView__message">
-            <IconContext.Provider  value={{ size: '1.5rem' }}>
-            <BiSearchAlt2 />
+            <IconContext.Provider value={{ size: "1.5rem" }}>
+              <BiSearchAlt2 />
             </IconContext.Provider>
-             Search for keywords like carrot, broccoli, cucumber. full list of
+            Search for keywords like carrot, broccoli, cucumber. full list of
             queries{" "}
             <a
               href="https://forkify-api.herokuapp.com/phrases.html"

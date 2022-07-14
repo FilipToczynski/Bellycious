@@ -7,8 +7,6 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [ress, setRess] = useState(false);
 
-  console.log(localStorage.token);
-  console.log(newPassword);
   const tokenId = window.localStorage.getItem("token");
   const submitReset = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -32,17 +30,18 @@ const Profile = () => {
         if (res.ok) {
           return res.json();
         } else {
-          return res.json().then((data) => {
+          return res.json().then(() => {
             let errMsg =
-              "something went wrong! check email, old password and try again.";
+              "something went wrong! check email, password and try again."; 
 
             throw new Error(errMsg);
           });
         }
       })
-      .then((data) => {})
+      .then(() => {})
       .catch((err) => {
-        alert(err.message);
+        const errr = document.querySelector(".err");
+        errr!.innerHTML = `<div class='error'>${err}</div>`; 
       });
   };
 
@@ -60,8 +59,13 @@ const Profile = () => {
         <div className="profile__view">
           <form className="profile__form" onSubmit={submitReset}>
             {ress && <p>Password Changed!</p>}
+            <p className="err"></p>
             <h1 className="profile__header">Reset Password</h1>
-            <label htmlFor="email" className="register__label" aria-label="label">
+            <label
+              htmlFor="email"
+              className="register__label"
+              aria-label="label"
+            >
               Enter email
             </label>
             <input
@@ -71,7 +75,11 @@ const Profile = () => {
               required
               autoComplete="on"
             ></input>
-            <label htmlFor="password" className="profile__label" aria-label="label">
+            <label
+              htmlFor="password"
+              className="profile__label"
+              aria-label="label"
+            >
               New password
             </label>
             <input

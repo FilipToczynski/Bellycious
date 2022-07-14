@@ -70,14 +70,14 @@ const Register: React.FC = () => {
         console.log(data);
       })
       .catch((err) => {
-        alert(err.message);
+        const popUp = document.querySelector(".logo__popup") as HTMLDivElement;
+        popUp.innerHTML = `<div class='error logo__modal'>${err}</div>`; 
       });
   };
   
     const loginConfirm = () => {
       const popUp = document.querySelector(".logo__popup") as HTMLDivElement;
-      const header = document!.querySelector(".register__header")!
-        .innerHTML as string;
+      const header = document!.querySelector(".register__header")!.innerHTML as string;
 
       const onLoginMessage = `
       <div class="logo__modal animate__animated animate__fadeIn">
