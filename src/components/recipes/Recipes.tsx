@@ -166,6 +166,7 @@ const Recipes: React.FC = () => {
         </div>
       </div>
     </section>
+    // add this
   );
 };
 
